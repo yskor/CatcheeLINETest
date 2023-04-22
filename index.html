@@ -149,22 +149,20 @@
 
         $(function () {
             $('form').submit(function () {
-                const memberArray = $("input[name='member[]']:checked")
-                const seatArray = $("input[name='seat[]']:checked")
-                if (!memberArray.length > 0) {
+                if (!$("input[name='member[]']:checked").length > 0) {
                   event.preventDefault();
                   window.alert('案内可能な人数を選択してください');
                   return
                 }
-                if (!seatArray.length > 0) {
+                if (!$("input[name='seat[]']:checked").length > 0) {
                   event.preventDefault();
                   window.alert('案内可能な席を選択してください');
                   return
                 }
-                memberArray.map(function() {
+                const seatArray = $("input[name='member[]']:checked").map(function() {
                   return $(this).val();
                 }).get()
-                seatArray.map(function() {
+                const memberArray = $("input[name='seat[]']:checked").map(function() {
                   return $(this).val();
                 }).get()
                 const message  = $('textarea[name="message"]').val();
