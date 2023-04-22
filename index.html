@@ -104,7 +104,7 @@
     <script>
       
         $(document).ready(function () {
-          liffId = "1660947540-vLp59q1w";
+          const liffId = "1660947540-vLp59q1w";
           initializeLiff(liffId);
           $(document).ready(function() {
             for (var i = 1; i <= 10; i++) {
@@ -117,7 +117,7 @@
 
         function initializeLiff(liffId) {
             liff.init({
-                liffId: liffId
+                liffId:'1660947540-vLp59q1w'
             }).then(() => {
                 initializeApp();
             }).catch((err) => {
