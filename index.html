@@ -159,10 +159,10 @@
                   window.alert('案内可能な席を選択してください');
                   return
                 }
-                const seatArray = $("input[name='member[]']:checked").map(function() {
+                const memberArray = $("input[name='member[]']:checked").map(function() {
                   return $(this).val();
                 }).get()
-                const memberArray = $("input[name='seat[]']:checked").map(function() {
+                const seatArray = $("input[name='seat[]']:checked").map(function() {
                   return $(this).val();
                 }).get()
                 const message  = $('textarea[name="message"]').val();
