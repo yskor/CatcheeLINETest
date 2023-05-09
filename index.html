@@ -107,8 +107,16 @@
       <div class="d-flex justify-content-center">
         <input type="submit" class="mt-4 btn btn-primary rounded-pill" value="キャッチを開始">
       </div>
+<<<<<<< HEAD
         <div id="user_id">ここにUserId</div>
+=======
+      <div id="user_id"></div>
+>>>>>>> eaabd63 (ajax追加)
     </form>
+
+    <div class="my-3 text-center">
+      <a href="https://catchee-dev.github.io/CatcheeLINE/service" style="color: #fd7e14;">操作説明はこちら</a>
+    </div>
   </main>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -136,6 +144,12 @@
                 if (!liff.isLoggedIn()) {
                   liff.login();
                 }
+<<<<<<< HEAD
+=======
+                const idToken = liff.getDecodedIDToken();
+                const userId = idToken.sub;
+                $("#user_id").text(userId);
+>>>>>>> eaabd63 (ajax追加)
             }).catch((err) => {
                 // window.alert('LIFF Initialization failed', err.code, err.message);
             });
@@ -191,6 +205,20 @@
             });
         });
 
+        $(function () {
+          $.ajax({
+            url: 'https://script.google.com/macros/s/AKfycbyjGkcYPWAyicIoduWjHpLpghR_sZdMBtWi7UvOSiqcXXERJxdCOp-bUh2cDhJQK8qX/exec',
+            type: 'GET',
+            dataType: "json",
+          }).done(function (data) {
+            // success
+            //取得jsonデータ
+            console.log(data);
+          }).fail(function (data) {
+            // error
+            console.log('error');
+          });
+        });
     </script>
 
 </body>
