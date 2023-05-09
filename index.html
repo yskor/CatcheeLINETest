@@ -104,6 +104,7 @@
       <div class="d-flex justify-content-center">
         <input type="submit" class="mt-4 btn btn-primary rounded-pill" value="キャッチを開始">
       </div>
+        <div id="user_id"></div>
     </form>
   </main>
 
@@ -128,6 +129,12 @@
                 liffId:liffId
             }).then(() => {
                 initializeApp();
+                if (!liff.isLoggedIn()) {
+                  liff.login();
+                }
+                const idToken = liff.getDecodedIDToken();
+                const userId = idToken.sub;
+                $("#user_id").text(userId);
             }).catch((err) => {
                 // window.alert('LIFF Initialization failed', err.code, err.message);
             });
@@ -147,6 +154,21 @@
         const params = (new URL(document.location)).searchParams;
         const key = params.get('key');
 
+        $(function () {
+          $.ajax({
+            url: 'https://script.google.com/macros/s/AKfycbyjGkcYPWAyicIoduWjHpLpghR_sZdMBtWi7UvOSiqcXXERJxdCOp-bUh2cDhJQK8qX/exec',
+            type: 'GET',
+            dataType: "json",
+          }).done(function (data) {
+            // success
+            //取得jsonデータ
+            console.log(data);
+          }).fail(function (data) {
+            // error
+            console.log('error');
+          });
+        });
+        
         $(function () {
             $('form').submit(function () {
                 if (!$("input[name='member[]']:checked").length > 0) {
