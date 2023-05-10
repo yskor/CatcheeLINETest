@@ -340,8 +340,9 @@
           if(message == '') {
             event.preventDefault();
             window.alert('メッセージを入力してください');
+            return
           }
-          const msg = `ID：${send_visit_id}\nメッセージ：\n${message}`;
+          const msg = `ID：${send_visit_id}\nメッセージ：${message}`;
           console.log(msg)
           sendText(msg);
           return false;
