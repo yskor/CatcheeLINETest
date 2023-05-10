@@ -108,28 +108,27 @@
       <div class="d-flex justify-content-center">
         <input type="submit" class="mt-4 btn btn-primary rounded-pill" value="キャッチを開始">
       </div>
-        <div id="user_id">ここにUserId</div>
-        <div class="fw-bold">
-          今お店をしているユーザー
-        </div>
-        <!-- リストグループ -->
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">日時</th>
-              <th scope="col">人数</th>
-              <th scope="col">希望</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody id="user_visit_list">
-            <tr>
-              <td colspan="4" class="text-center">
-                データを取得しています・・・
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="fw-bold mt-3">
+        今お店をしているユーザー
+      </div>
+      <!-- リストグループ -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">日時</th>
+            <th scope="col">人数</th>
+            <th scope="col">希望</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="user_visit_list">
+          <tr>
+            <td colspan="4" class="text-center">
+              データを取得しています・・・
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </form>
     <div class="my-3 text-center">
       <a href="https://catchee-dev.github.io/CatcheeLINE/service" style="color: #fd7e14;">操作説明はこちら</a>
@@ -156,6 +155,7 @@
               <div class="mb-3">
                 <form id="message_form">
                   <div class="form-group">
+                    <input type="hidden" id="message_send_user_id" value="">
                     <label for="userSendMessage">メッセージ</label>
                     <textarea class="form-control" id="userSendMessage" rows="3" placeholder="メッセージを入力してください。ここに入力されたメッセージは直接ユーザーに送られます。"></textarea>
                   </div>
@@ -176,11 +176,11 @@
         var button = event.relatedTarget
         // Extract info from data-bs-* attributes
         var button = event.relatedTarget
-        var user_id = button.getAttribute('data-bs-user_id')
+        var message_send_visit_id = button.getAttribute('data-bs-message_send_visit_id')
         // var time = button.getAttribute('data-bs-time')
         var member = button.getAttribute('data-bs-member')
         var hope = button.getAttribute('data-bs-hope')
-        $("#exampleModal").find('#member').text(user_id)
+        $("#message_send_user_id").val(message_send_visit_id)
         // $("#exampleModal").find('#time').text('text-bs-time')
         $("#exampleModal").find('#member').text(member)
         $("#exampleModal").find('#hope').text(hope)
@@ -286,7 +286,7 @@
               html = '';
               $.each(data, function(index, item) {
                 // 人数とカテゴリの情報を取得して、リストアイテムに追加
-                var user_id = item[1];
+                var message_send_visit_id = item[0];
                 var time = dateFormat(item[3]);
                 var member = item[4];
                 var hope = item[5];
@@ -298,7 +298,7 @@
                         <td>${member}</td>
                         <td>${hope}</td>
                         <td>
-                          <div type="" class="" style="color:#fd7e14;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-user_id="${user_id}" data-bs-time="${time}" data-bs-member="${member}" data-bs-hope="${hope}"><i class="fa-solid fa-comment fa-lg"></i></div>
+                          <div type="" class="" style="color:#fd7e14;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-message_send_visit_id="${message_send_visit_id}" data-bs-time="${time}" data-bs-member="${member}" data-bs-hope="${hope}"><i class="fa-solid fa-comment fa-lg"></i></div>
                         </td>
                       </tr>
                 `
@@ -333,13 +333,14 @@
         }
 
         function cathcMessage() {
+          const send_visit_id  = $('#message_send_visit_id').val();
           const message  = $('textarea[name="userSendMessage"]').val();
           console.log($('textarea[name="userSendMessage"]').val())
           if(message == '') {
             event.preventDefault();
             window.alert('メッセージを入力してください');
           }
-          const msg = `メッセージ\n${message}`;
+          const msg = `ID：${send_user_id}\nメッセージ：\n${message}`;
           console.log(msg)
           sendText(msg);
           return false;
