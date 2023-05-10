@@ -107,11 +107,7 @@
       <div class="d-flex justify-content-center">
         <input type="submit" class="mt-4 btn btn-primary rounded-pill" value="キャッチを開始">
       </div>
-<<<<<<< HEAD
         <div id="user_id">ここにUserId</div>
-=======
-      <div id="user_id"></div>
->>>>>>> eaabd63 (ajax追加)
     </form>
 
     <div class="my-3 text-center">
@@ -144,12 +140,6 @@
                 if (!liff.isLoggedIn()) {
                   liff.login();
                 }
-<<<<<<< HEAD
-=======
-                const idToken = liff.getDecodedIDToken();
-                const userId = idToken.sub;
-                $("#user_id").text(userId);
->>>>>>> eaabd63 (ajax追加)
             }).catch((err) => {
                 // window.alert('LIFF Initialization failed', err.code, err.message);
             });
