@@ -124,7 +124,6 @@
         $(document).ready(function () {
           const liffId = "1660947540-vLp59q1w";
           initializeLiff(liffId);
-          getUserId()
           for (var i = 1; i <= 10; i++) {
             var member_button = `<input type="checkbox" class="btn-check" id="member${i}" name="member[]" value="${i}人">
                                   <label class="btn btn-outline-primary" for="member${i}">${i}人</label>`
@@ -140,6 +139,7 @@
                 if (!liff.isLoggedIn()) {
                   liff.login();
                 }
+                getUserId()
             }).catch((err) => {
                 // window.alert('LIFF Initialization failed', err.code, err.message);
             });
