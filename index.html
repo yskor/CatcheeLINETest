@@ -212,13 +212,13 @@
                 if (!liff.isLoggedIn()) {
                   liff.login();
                 }
-                getProfile()
+                userProfile()
             }).catch((err) => {
                 // window.alert('LIFF Initialization failed', err.code, err.message);
             });
         }
 
-        function getProfile() {
+        function userProfile() {
           liff
             .getProfile()
             .then((profile) => {
