@@ -137,6 +137,7 @@
                 }
                 const idToken = liff.getDecodedIDToken();
                 const userId = idToken.sub;
+                window.alert('UserID', userId);
                 $("#user_id").text(userId);
             }).catch((err) => {
                 // window.alert('LIFF Initialization failed', err.code, err.message);
