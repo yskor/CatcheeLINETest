@@ -108,6 +108,37 @@
         <input type="submit" class="mt-4 btn btn-primary rounded-pill" value="キャッチを開始">
       </div>
         <div id="user_id">ここにUserId</div>
+        <div>
+          今日お店をしているユーザー
+          <div id="user_visit_list">
+            データを取得しています・・・
+          </div>
+        </div>
+        <!-- コメント入力用のモーダル -->
+        <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">コメントを追加</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="commentTextarea">コメント</label>
+                    <textarea class="form-control" id="commentTextarea" rows="3" placeholder="コメントを入力してください"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </form>
 
     <div class="my-3 text-center">
@@ -210,6 +241,31 @@
             // success
             //取得jsonデータ
             console.log(data);
+            if(data.length > 0 && data[0][0] != '') {
+              var listGroup = $("<ul>").addClass("list-group"); // リストグループを作成
+              
+              $.each(data, function(index, item) {
+                var listItem = $("<li>").addClass("list-group-item"); // リストアイテムを作成
+                
+                // 人数とカテゴリの情報を取得して、リストアイテムに追加
+                var title = $("<h5>").addClass("mb-1").text(item[4]);
+                var category = $("<small>").addClass("text-muted").text(item[5]);
+                listItem.append(title).append(category);
+                
+                // コメント入力用のボタンを作成
+                var commentButton = $("<button>").addClass("btn btn-outline-primary btn-sm float-right");
+                commentButton.text("コメントを追加");
+                commentButton.attr("data-toggle", "modal");
+                commentButton.attr("data-target", "#commentModal");
+                listItem.append(commentButton);
+                
+                listGroup.append(listItem);
+              });
+              
+              $("#user_visit_list").html(listGroup); // リストグループをHTMLに反映
+            } else {
+              $("#user_visit_list").html('見つかりませんでした'); // リストグループをHTMLに反映
+            }
           }).fail(function (data) {
             // error
             console.log('error');
