@@ -171,17 +171,13 @@
     <script>
       var exampleModal = document.getElementById('exampleModal')
       exampleModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
         var button = event.relatedTarget
-        // Extract info from data-bs-* attributes
         var button = event.relatedTarget
         var message_send_visit_id = button.getAttribute('data-bs-message_send_visit_id')
         console.log(message_send_visit_id)
-        // var time = button.getAttribute('data-bs-time')
         var member = button.getAttribute('data-bs-member')
         var hope = button.getAttribute('data-bs-hope')
         $("#message_send_user_id").val(message_send_visit_id)
-        // $("#exampleModal").find('#time').text('text-bs-time')
         $("#exampleModal").find('#member').text(member)
         $("#exampleModal").find('#hope').text(hope)
       })
