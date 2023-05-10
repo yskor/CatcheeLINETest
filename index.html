@@ -139,17 +139,23 @@
                 if (!liff.isLoggedIn()) {
                   liff.login();
                 }
-                getUserId()
+                getProfile()
             }).catch((err) => {
                 // window.alert('LIFF Initialization failed', err.code, err.message);
             });
         }
 
-        function getUserId() {
-            const idToken = liff.getDecodedIDToken();
-            const userId = idToken.sub;
-            window.alert('UserID', userId);
-            $("#user_id").text(userId);
+        function getProfile() {
+          liff
+            .getProfile()
+            .then((profile) => {
+              const name = profile.displayName;
+              const userId = profile.userId;
+              $("#user_id").text(userId);
+            })
+            .catch((err) => {
+              console.log("error", err);
+            });
         }
 
         function sendText(text) {
