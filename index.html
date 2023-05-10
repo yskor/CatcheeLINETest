@@ -111,7 +111,6 @@
       <div class="fw-bold mt-3">
         今お店をしているユーザー
       </div>
-      <!-- リストグループ -->
       <table class="table">
         <thead>
           <tr>
@@ -177,6 +176,7 @@
         // Extract info from data-bs-* attributes
         var button = event.relatedTarget
         var message_send_visit_id = button.getAttribute('data-bs-message_send_visit_id')
+        console.log(message_send_visit_id)
         // var time = button.getAttribute('data-bs-time')
         var member = button.getAttribute('data-bs-member')
         var hope = button.getAttribute('data-bs-hope')
@@ -333,14 +333,15 @@
         }
 
         function cathcMessage() {
-          const send_visit_id  = $('#message_send_visit_id').val();
-          const message  = $('textarea[name="userSendMessage"]').val();
-          console.log($('textarea[name="userSendMessage"]').val())
+          const send_visit_id  = $("#message_send_user_id").val();
+          console.log(send_visit_id)
+          const message  = $('#userSendMessage').val();
+          console.log($('#userSendMessage').val())
           if(message == '') {
             event.preventDefault();
             window.alert('メッセージを入力してください');
           }
-          const msg = `ID：${send_user_id}\nメッセージ：\n${message}`;
+          const msg = `ID：${send_visit_id}\nメッセージ：\n${message}`;
           console.log(msg)
           sendText(msg);
           return false;
