@@ -7,6 +7,7 @@
     <title>キャッチする</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+    <script src="https://kit.fontawesome.com/d3bcd8bec8.js" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script> -->
@@ -62,7 +63,7 @@
     <h5 class="border-bottom py-2 text-center">キャッチする</h5>
   </header>
   <main class="">
-    <form class="p-3">
+    <form id="catch_form" class="p-3">
       <div class="">
           <label class="fw-bold mb-3">
             案内可能な人数
@@ -108,42 +109,83 @@
         <input type="submit" class="mt-4 btn btn-primary rounded-pill" value="キャッチを開始">
       </div>
         <div id="user_id">ここにUserId</div>
-        <div>
-          今日お店をしているユーザー
-          <div id="user_visit_list">
-            データを取得しています・・・
-          </div>
+        <div class="fw-bold">
+          今お店をしているユーザー
         </div>
-        <!-- コメント入力用のモーダル -->
-        <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="commentModalLabel">コメントを追加</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <label for="commentTextarea">コメント</label>
-                    <textarea class="form-control" id="commentTextarea" rows="3" placeholder="コメントを入力してください"></textarea>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary">保存</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- リストグループ -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">日時</th>
+              <th scope="col">人数</th>
+              <th scope="col">希望</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody id="user_visit_list">
+            <tr>
+              <td colspan="4" class="text-center">
+                データを取得しています・・・
+              </td>
+            </tr>
+          </tbody>
+        </table>
     </form>
-
     <div class="my-3 text-center">
       <a href="https://catchee-dev.github.io/CatcheeLINE/service" style="color: #fd7e14;">操作説明はこちら</a>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">メッセージ</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-1">
+                <div>ユーザーの食べに行く情報</div>
+                <div class="d-flex">
+                  <div>人数:</div>
+                  <div id="member"></div>
+                  <div style="margin-left: 0.5rem;">希望:</div>
+                  <div id="hope"></div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <form id="message_form">
+                  <div class="form-group">
+                    <label for="messageTextarea">メッセージ</label>
+                    <textarea class="form-control" id="messageTextarea" rows="3" placeholder="メッセージを入力してください。ここに入力されたメッセージは直接ユーザーに送られます。"></textarea>
+                  </div>
+                </form>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div type="button" class="btn btn-primary" onclick="cathcMessage()">送信</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var exampleModal = document.getElementById('exampleModal')
+      exampleModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        var button = event.relatedTarget
+        var user_id = button.getAttribute('data-bs-user_id')
+        // var time = button.getAttribute('data-bs-time')
+        var member = button.getAttribute('data-bs-member')
+        var hope = button.getAttribute('data-bs-hope')
+        $("#exampleModal").find('#member').text(user_id)
+        // $("#exampleModal").find('#time').text('text-bs-time')
+        $("#exampleModal").find('#member').text(member)
+        $("#exampleModal").find('#hope').text(hope)
+      })
+    </script>
   </main>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -204,7 +246,7 @@
         const key = params.get('key');
 
         $(function () {
-            $('form').submit(function () {
+            $('form#catch_form').submit(function () {
                 if (!$("input[name='member[]']:checked").length > 0) {
                   event.preventDefault();
                   window.alert('案内可能な人数を選択してください');
@@ -242,35 +284,67 @@
             //取得jsonデータ
             console.log(data);
             if(data.length > 0 && data[0][0] != '') {
-              var listGroup = $("<ul>").addClass("list-group"); // リストグループを作成
-              
+              html = '';
               $.each(data, function(index, item) {
-                var listItem = $("<li>").addClass("list-group-item"); // リストアイテムを作成
-                
                 // 人数とカテゴリの情報を取得して、リストアイテムに追加
-                var title = $("<h5>").addClass("mb-1").text(item[4]);
-                var category = $("<small>").addClass("text-muted").text(item[5]);
-                listItem.append(title).append(category);
+                var user_id = item[1];
+                var time = dateFormat(item[3]);
+                var member = item[4];
+                var hope = item[5];
                 
-                // コメント入力用のボタンを作成
-                var commentButton = $("<button>").addClass("btn btn-outline-primary btn-sm float-right");
-                commentButton.text("コメントを追加");
-                commentButton.attr("data-toggle", "modal");
-                commentButton.attr("data-target", "#commentModal");
-                listItem.append(commentButton);
-                
-                listGroup.append(listItem);
+                // trを作成
+                trItem = `
+                      <tr>
+                        <td>${time}</td>
+                        <td>${member}</td>
+                        <td>${hope}</td>
+                        <td>
+                          <div type="" class="" style="color:#fd7e14;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-user_id="${user_id}" data-bs-time="${time}" data-bs-member="${member}" data-bs-hope="${hope}"><i class="fa-solid fa-comment fa-lg"></i></div>
+                        </td>
+                      </tr>
+                `
+                html += trItem;
+                $("#user_visit_list").html(html);
               });
               
-              $("#user_visit_list").html(listGroup); // リストグループをHTMLに反映
             } else {
-              $("#user_visit_list").html('見つかりませんでした'); // リストグループをHTMLに反映
+              // trを作成
+              trItem = `
+                      <tr>
+                        <td colspan="4" class="text-center">見つかりませんでした</td>
+                      </tr>
+                `
+              $("#user_visit_list").html(trItem);
             }
           }).fail(function (data) {
             // error
             console.log('error');
           });
         });
+
+        function dateFormat(dateStr) {
+          console.log(dateStr)
+          var date = new Date(dateStr);
+          date.setTime(date.getTime() + 9); // UTCから9時間（日本時間）を加算
+          var hh = date.getHours().toString().padStart(2, '0'); // 時刻の時の部分を2桁の文字列に整形する
+          var mm = date.getMinutes().toString().padStart(2, '0'); // 時刻の分の部分を2桁の文字列に整形する
+          var formattedTimeStr = hh + ':' + mm; // hh:mm形式の文字列を生成する
+          console.log(formattedTimeStr); // => "23:21"
+          return formattedTimeStr
+        }
+
+        function cathcMessage() {
+          const message  = $('textarea[name="message"]').val();
+          console.log($('textarea[name="message"]').val())
+          if(message == '') {
+            event.preventDefault();
+            window.alert('メッセージを入力してください');
+          }
+          const msg = `メッセージ\n${message}`;
+          console.log(msg)
+          sendText(msg);
+          return false;
+        }
     </script>
 
 </body>
