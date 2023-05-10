@@ -156,8 +156,8 @@
               <div class="mb-3">
                 <form id="message_form">
                   <div class="form-group">
-                    <label for="messageTextarea">メッセージ</label>
-                    <textarea class="form-control" id="messageTextarea" rows="3" placeholder="メッセージを入力してください。ここに入力されたメッセージは直接ユーザーに送られます。"></textarea>
+                    <label for="userSendMessage">メッセージ</label>
+                    <textarea class="form-control" id="userSendMessage" rows="3" placeholder="メッセージを入力してください。ここに入力されたメッセージは直接ユーザーに送られます。"></textarea>
                   </div>
                 </form>
               </div>
@@ -333,8 +333,8 @@
         }
 
         function cathcMessage() {
-          const message  = $('textarea[name="message"]').val();
-          console.log($('textarea[name="message"]').val())
+          const message  = $('textarea[name="userSendMessage"]').val();
+          console.log($('textarea[name="userSendMessage"]').val())
           if(message == '') {
             event.preventDefault();
             window.alert('メッセージを入力してください');
