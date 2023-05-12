@@ -188,7 +188,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <div type="button" class="btn btn-primary" onclick="cathcMessage()">送信</div>
+            <div type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="cathcMessage()">送信</div>
           </div>
         </div>
       </div>
@@ -252,21 +252,14 @@
             });
         }
 
-        function sendText(text) {
+        function sendText(text, close_window_flag = true) {
             liff.sendMessages([{
                 'type': 'text',
                 'text': text
             }]).then(function () {
-              liff.closeWindow();
-            }).catch(function (error) {
-                // window.alert(`Failed to send message ` + error);
-            });
-        }
-        function sendUserMessage(text) {
-            liff.sendMessages([{
-                'type': 'text',
-                'text': text
-            }]).then(function () {
+              if(close_window_flag == true) {
+                liff.closeWindow();
+              }
             }).catch(function (error) {
                 // window.alert(`Failed to send message ` + error);
             });
@@ -373,8 +366,10 @@
             return
           }
           const msg = `ID：${send_visit_id}\nメッセージ：${message}`;
-          sendUserMessage(msg, false);
           console.log(msg)
+          $('#userSendMessage').val('');
+          sendText(msg, false);
+          window.alert('メッセージを送信しました！');
           return false;
         }
     </script>
