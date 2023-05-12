@@ -82,7 +82,7 @@
     <h5 class="border-bottom py-2 text-center">キャッチする</h5>
   </header>
   <main class="">
-    <div class="text-center">
+    <div class="text-center fs-4 mt-3">
       ＼　<a href="#user_visit_section" style="color:#fd7e14;">新機能</a>が追加されました！！　／
     </div>
     <form id="catch_form" class="p-3">
@@ -252,14 +252,21 @@
             });
         }
 
-        function sendText(text, close_window_flag = true) {
+        function sendText(text) {
             liff.sendMessages([{
                 'type': 'text',
                 'text': text
             }]).then(function () {
-              if(close_window_flag == true) {
-                liff.closeWindow();
-              }
+              liff.closeWindow();
+            }).catch(function (error) {
+                // window.alert(`Failed to send message ` + error);
+            });
+        }
+        function sendUserMessage(text) {
+            liff.sendMessages([{
+                'type': 'text',
+                'text': text
+            }]).then(function () {
             }).catch(function (error) {
                 // window.alert(`Failed to send message ` + error);
             });
@@ -366,8 +373,8 @@
             return
           }
           const msg = `ID：${send_visit_id}\nメッセージ：${message}`;
+          sendUserMessage(msg, false);
           console.log(msg)
-          sendText(msg, false);
           return false;
         }
     </script>
