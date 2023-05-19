@@ -82,7 +82,7 @@
     <h5 class="border-bottom py-2 text-center">キャッチする</h5>
   </header>
   <main class="">
-    <form id="catch_form" class="p-3" hidden>
+    <form id="catch_form" class="p-3">
       <div class="text-center fs-4 mt-3">
         ＼　<a href="#user_visit_section" style="color:#fd7e14;">新機能</a>が追加されました！！　／
       </div>
@@ -120,7 +120,7 @@
           </div>
           <hr>
       </div>
-      <div id="user_id">UserId</div>
+
       <div class="">
         <label for="message" class="fw-bold mb-3">
           メッセージ
@@ -158,10 +158,6 @@
         <a href="https://catchee-dev.github.io/CatcheeLINE/service" style="color: #fd7e14;">操作説明はこちら</a>
       </div>
     </form>
-
-    <div id="not_store" class="text-center" hidden>
-      飲食店アカウントでないため、利用できません。
-    </div>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -225,29 +221,17 @@
           liff.init({
               liffId:liffId
           }).then(() => {
-              userProfile()              
+              // userProfile()              
           }).catch((err) => {
               // window.alert('LIFF Initialization failed '+ err.code+ ' '+ err.message);
           });
+          getVisitList();
           for (var i = 1; i <= 10; i++) {
             var member_button = `<input type="checkbox" class="btn-check" id="member${i}" name="member[]" value="${i}人">
                                   <label class="btn btn-outline-primary" for="member${i}">${i}人</label>`
             $('#member_button_area').append(member_button);
           }
         })
-
-        function initializeLiff(liffId) {
-            liff.init({
-                liffId:liffId
-            }).then(() => {
-                initializeApp();
-                if (!liff.isLoggedIn()) {
-                  liff.login();
-                }
-            }).catch((err) => {
-                // window.alert('LIFF Initialization failed '+ err.code+ ' '+ err.message);
-            });
-        }
 
         function userProfile() {
           liff
