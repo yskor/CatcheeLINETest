@@ -216,7 +216,8 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-    <script>    
+    <script>
+        import liff from '@line/liff'    
         $(document).ready(function () {
           const liffId = "1660947540-vLp59q1w";
           initializeLiff(liffId);
@@ -235,6 +236,7 @@
                 if (!liff.isLoggedIn()) {
                   liff.login();
                 }
+                $("#log").val('liff.getDecodedIDToken()=');
                 $("#log").val('liff.getDecodedIDToken()=' + JSON.stringify(liff.getDecodedIDToken()));
                 userProfile()
             }).catch((err) => {
