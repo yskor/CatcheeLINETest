@@ -226,22 +226,10 @@
               // if (!liff.isLoggedIn()) {
               //   liff.login();
               // }
-              // userProfie()              
+              userProfile()              
           }).catch((err) => {
               window.alert('LIFF Initialization failed '+ err.code+ ' '+ err.message);
           });
-          liff
-            .getProfile()
-            .then((profile) => {
-              const name = profile.displayName;
-              const userId = profile.userId;
-              $("#user_id").text(userId);
-              window.alert(`UserId ` + userId);
-            })
-            .catch((err) => {
-              window.alert(`error profile` + err);
-              console.log("error", err);
-            });
           for (var i = 1; i <= 10; i++) {
             var member_button = `<input type="checkbox" class="btn-check" id="member${i}" name="member[]" value="${i}人">
                                   <label class="btn btn-outline-primary" for="member${i}">${i}人</label>`
