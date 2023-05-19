@@ -120,6 +120,7 @@
           </div>
           <hr>
       </div>
+      <div id="user_id"></div>
       <div class="">
         <label for="message" class="fw-bold mb-3">
           メッセージ
@@ -246,6 +247,7 @@
               const name = profile.displayName;
               const userId = profile.userId;
               $("#user_id").text(userId);
+                window.alert(`UserId ` + userId);
             })
             .catch((err) => {
               console.log("error", err);
