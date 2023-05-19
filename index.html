@@ -218,17 +218,12 @@
     <script>
         $(document).ready(function () {
           const liffId = "1660947540-vLp59q1w";
-          // initializeLiff(liffId);
           liff.init({
               liffId:liffId
           }).then(() => {
-              // initializeApp();
-              // if (!liff.isLoggedIn()) {
-              //   liff.login();
-              // }
               userProfile()              
           }).catch((err) => {
-              window.alert('LIFF Initialization failed '+ err.code+ ' '+ err.message);
+              // window.alert('LIFF Initialization failed '+ err.code+ ' '+ err.message);
           });
           for (var i = 1; i <= 10; i++) {
             var member_button = `<input type="checkbox" class="btn-check" id="member${i}" name="member[]" value="${i}人">
@@ -246,7 +241,7 @@
                   liff.login();
                 }
             }).catch((err) => {
-                window.alert('LIFF Initialization failed '+ err.code+ ' '+ err.message);
+                // window.alert('LIFF Initialization failed '+ err.code+ ' '+ err.message);
             });
         }
 
@@ -257,11 +252,11 @@
               const name = profile.displayName;
               const userId = profile.userId;
               $("#user_id").text(userId);
-              window.alert(`UserId ` + userId);
+              // window.alert(`UserId ` + userId);
             })
             .catch((err) => {
-              window.alert(`error profile` + err);
-              console.log("error", err);
+              // window.alert(`error profile` + err);
+              // console.log("error", err);
             });
         }
 
@@ -277,6 +272,23 @@
                 // window.alert(`Failed to send message ` + error);
             });
         }
+
+        function checkStore(user_id) {
+          $.ajax({
+            url: 'https://script.google.com/macros/s/AKfycbyjGkcYPWAyicIoduWjHpLpghR_sZdMBtWi7UvOSiqcXXERJxdCOp-bUh2cDhJQK8qX/exec',
+            type: 'GET',
+            data:{
+              'user_id':user_id,
+            },
+            dataType: "json",
+          }).done(function (data) {
+            //取得jsonデータ
+            console.log(data);
+          }).fail(function (data) {
+            // error
+            console.log('error');
+          });
+        };
 
         const params = (new URL(document.location)).searchParams;
         const key = params.get('key');
