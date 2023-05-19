@@ -327,6 +327,7 @@
           }).done(function (data) {
             //取得jsonデータ
             console.log(data);
+            window.alert(data);
             if(data.length > 0 && data[0][0] != '') {
               html = '';
               $.each(data, function(index, item) {
