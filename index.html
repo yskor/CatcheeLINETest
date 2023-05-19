@@ -121,6 +121,7 @@
           <hr>
       </div>
       <div id="user_id"></div>
+      <textarea id="log" style="width:96%;height:350px;"></textarea>
       <div class="">
         <label for="message" class="fw-bold mb-3">
           メッセージ
@@ -234,6 +235,7 @@
                 if (!liff.isLoggedIn()) {
                   liff.login();
                 }
+                $("#log").val('liff.getDecodedIDToken()=' + JSON.stringify(liff.getDecodedIDToken()));
                 userProfile()
             }).catch((err) => {
                 // window.alert('LIFF Initialization failed', err.code, err.message);
