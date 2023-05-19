@@ -228,7 +228,7 @@
               // }
               userProfie()              
           }).catch((err) => {
-              window.alert('LIFF Initialization failed', err.code, err.message);
+              window.alert('LIFF Initialization failed '+ err.code+ ' '+ err.message);
           });
           for (var i = 1; i <= 10; i++) {
             var member_button = `<input type="checkbox" class="btn-check" id="member${i}" name="member[]" value="${i}人">
@@ -246,7 +246,7 @@
                   liff.login();
                 }
             }).catch((err) => {
-                window.alert('LIFF Initialization failed', err.code, err.message);
+                window.alert('LIFF Initialization failed '+ err.code+ ' '+ err.message);
             });
         }
 
