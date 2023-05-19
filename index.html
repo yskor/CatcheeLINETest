@@ -120,8 +120,7 @@
           </div>
           <hr>
       </div>
-      <div id="user_id"></div>
-      <textarea id="log" style="width:96%;height:350px;"></textarea>
+      <div id="user_id">UserId</div>
       <div class="">
         <label for="message" class="fw-bold mb-3">
           メッセージ
@@ -221,8 +220,6 @@
           const liffId = "1660947540-vLp59q1w";
           initializeLiff(liffId);
           window.alert(`UserId `);
-          $("#log").val('liff.getDecodedIDToken()=');
-          $("#log").val('liff.getDecodedIDToken()=' + JSON.stringify(liff.getDecodedIDToken()));
           userProfile()
           for (var i = 1; i <= 10; i++) {
             var member_button = `<input type="checkbox" class="btn-check" id="member${i}" name="member[]" value="${i}人">
@@ -251,9 +248,10 @@
               const name = profile.displayName;
               const userId = profile.userId;
               $("#user_id").text(userId);
-                window.alert(`UserId ` + userId);
+              window.alert(`UserId ` + userId);
             })
             .catch((err) => {
+              window.alert(`error ` + err);
               console.log("error", err);
             });
         }
