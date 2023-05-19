@@ -218,8 +218,17 @@
     <script>
         $(document).ready(function () {
           const liffId = "1660947540-vLp59q1w";
-          initializeLiff(liffId);
-          window.alert(`UserId `);
+          // initializeLiff(liffId);
+          liff.init({
+              liffId:liffId
+          }).then(() => {
+              initializeApp();
+              if (!liff.isLoggedIn()) {
+                liff.login();
+              }
+          }).catch((err) => {
+              window.alert('LIFF Initialization failed', err.code, err.message);
+          });
           userProfile()
           for (var i = 1; i <= 10; i++) {
             var member_button = `<input type="checkbox" class="btn-check" id="member${i}" name="member[]" value="${i}人">
@@ -237,7 +246,7 @@
                   liff.login();
                 }
             }).catch((err) => {
-                // window.alert('LIFF Initialization failed', err.code, err.message);
+                window.alert('LIFF Initialization failed', err.code, err.message);
             });
         }
 
@@ -251,7 +260,7 @@
               window.alert(`UserId ` + userId);
             })
             .catch((err) => {
-              window.alert(`error ` + err);
+              window.alert(`error profile` + err);
               console.log("error", err);
             });
         }
