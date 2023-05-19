@@ -252,6 +252,7 @@
               const name = profile.displayName;
               const userId = profile.userId;
               $("#user_id").text(userId);
+              checkStore(userId);
               // window.alert(`UserId ` + userId);
             })
             .catch((err) => {
@@ -283,7 +284,12 @@
             dataType: "json",
           }).done(function (data) {
             //取得jsonデータ
-            console.log(data);
+            window.alert(data);
+            if(data[0] != '') {
+              window.alert('飲食店アカウントです');
+            } else {
+              window.alert('飲食店アカウントではありません');
+            }
           }).fail(function (data) {
             // error
             console.log('error');
@@ -322,7 +328,8 @@
             });
         });
 
-        $(function () {
+
+        function getVisitList() {
           $.ajax({
             url: 'https://script.google.com/macros/s/AKfycbyjGkcYPWAyicIoduWjHpLpghR_sZdMBtWi7UvOSiqcXXERJxdCOp-bUh2cDhJQK8qX/exec',
             type: 'GET',
@@ -367,7 +374,7 @@
             // error
             console.log('error');
           });
-        });
+        };
 
         function dateFormat(dateStr) {
           console.log(dateStr)
