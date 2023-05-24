@@ -86,7 +86,7 @@
       ＼　<a href="#user_visit_section" style="color:#fd7e14;">新機能</a>が追加されました！！　／
     </div>
     <form id="catch_form" class="p-3">
-      <div class="">
+      <!-- <div class="">
           <label class="fw-bold mb-3">
             案内可能な人数
             <span class="fw-normal text-muted" style="font-size: small;">（複数選択できます）</span>
@@ -95,7 +95,6 @@
             </div>
           </label>
           <div id="member_button_area" name="member_button_area" class="scroll_x">
-            <!-- ここにボタン -->
           </div>
           <hr>
       </div>
@@ -119,7 +118,7 @@
             </div>
           </div>
           <hr>
-      </div>
+      </div> -->
 
       <div class="">
         <label for="message" class="fw-bold mb-3">
@@ -226,11 +225,11 @@
               // window.alert('LIFF Initialization failed '+ err.code+ ' '+ err.message);
           });
           getVisitList();
-          for (var i = 1; i <= 10; i++) {
-            var member_button = `<input type="checkbox" class="btn-check" id="member${i}" name="member[]" value="${i}人">
-                                  <label class="btn btn-outline-primary" for="member${i}">${i}人</label>`
-            $('#member_button_area').append(member_button);
-          }
+          // for (var i = 1; i <= 10; i++) {
+          //   var member_button = `<input type="checkbox" class="btn-check" id="member${i}" name="member[]" value="${i}人">
+          //                         <label class="btn btn-outline-primary" for="member${i}">${i}人</label>`
+          //   $('#member_button_area').append(member_button);
+          // }
         })
 
         function userProfile() {
@@ -291,27 +290,28 @@
 
         $(function () {
             $('form#catch_form').submit(function () {
-                if (!$("input[name='member[]']:checked").length > 0) {
-                  event.preventDefault();
-                  window.alert('案内可能な人数を選択してください');
-                  return
-                }
-                if (!$("input[name='seat[]']:checked").length > 0) {
-                  event.preventDefault();
-                  window.alert('案内可能な席を選択してください');
-                  return
-                }
-                const memberArray = $("input[name='member[]']:checked").map(function() {
-                  return $(this).val();
-                }).get()
-                const seatArray = $("input[name='seat[]']:checked").map(function() {
-                  return $(this).val();
-                }).get()
+                // if (!$("input[name='member[]']:checked").length > 0) {
+                //   event.preventDefault();
+                //   window.alert('案内可能な人数を選択してください');
+                //   return
+                // }
+                // if (!$("input[name='seat[]']:checked").length > 0) {
+                //   event.preventDefault();
+                //   window.alert('案内可能な席を選択してください');
+                //   return
+                // }
+                // const memberArray = $("input[name='member[]']:checked").map(function() {
+                //   return $(this).val();
+                // }).get()
+                // const seatArray = $("input[name='seat[]']:checked").map(function() {
+                //   return $(this).val();
+                // }).get()
                 const message  = $('textarea[name="message"]').val();
                 console.log($('textarea[name="message"]').val())
-                console.log(memberArray)
-                console.log(seatArray)
-                const msg = `キャッチ条件\n人　　数：${memberArray}\nご案内席：${seatArray}\nメッセージ：${message}`;
+                // console.log(memberArray)
+                // console.log(seatArray)
+                // const msg = `キャッチ条件\n人　　数：${memberArray}\nご案内席：${seatArray}\nメッセージ：${message}`;
+                const msg = `キャッチ条件\nメッセージ：${message}`;
                 console.log(msg)
                 sendText(msg);
                 return false;
